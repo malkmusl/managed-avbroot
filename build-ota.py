@@ -1,3 +1,34 @@
+"""
+
+As the world becomes increasingly reliant on technology, the demand for software that can customize and optimize the user experience continues to rise. 
+In the world of Android devices, OTA updates are a critical part of ensuring that devices remain secure and up-to-date with the latest features. 
+However, for power users and developers who want more control over their devices, OTA updates can be limiting. 
+This is where custom scripts like the ones we'll be reviewing come in.
+
+Part 1 of this review focuses on a Python script that provides a streamlined approach for managing OTA updates and customizing Android devices. 
+By prompting the user to select the build type, device, and Magisk version, the script automates several steps in the patching process, 
+making it easier for users to get the customizations they want without having to go through a convoluted manual process. 
+The script is not only efficient, but also provides a sense of empowerment and control to users who want to take their Android experience to the next level.
+
+Part 2 of this review delves into two additional functions that integrate into the larger OTA update script. 
+These functions not only automate further steps in the patching process but also enhance the script's versatility and functionality. 
+The select_build_version function enables users to select a build-number for a given build type and device, 
+while the check_url function checks if a given URL is a Google or GrapheneOS download link. 
+Together, these functions provide a robust solution for managing OTA updates and customizing Android devices
+ in a way that empowers users to take control of their devices and make them truly their own.
+
+Overall, these custom scripts represent the power of open-source software and the collaborative nature of the developer community. 
+By licensing the project under the MIT Public License, the developers have not only made their code available for anyone to use 
+but also encouraged others to contribute to the project and build upon it. 
+The result is a powerful and versatile tool that makes customizing Android devices more accessible and intuitive for everyone.
+
+Please note that this project is licensed under the MIT Public License. 
+By using or contributing to this project, you agree to the terms and conditions outlined in the license. 
+A copy of the license can be found in the root directory of the project. 
+If you have any questions or concerns about the license, please reach out to the project maintainers
+
+"""
+
 import os
 import requests
 import shutil
@@ -15,9 +46,12 @@ allowed_buildtypes = [d for d in os.listdir(root_dir) if os.path.isdir(os.path.j
 
 
 """
-The provided code contains three functions: `print_root_dir`, `print_type_dir`, and `version_dir`. These functions are related to navigating a directory structure and printing out its contents. 
+The provided code contains three functions: `print_root_dir`, `print_type_dir`, and `version_dir`.
+These functions are related to navigating a directory structure and printing out its contents. 
 
-The `print_root_dir` function prints out the available build types in the root directory. The `print_type_dir` function prints out the available devices for a given build type. The `version_dir` function constructs a path to a version directory and prints out its contents in a tree structure if it exists.
+The `print_root_dir` function prints out the available build types in the root directory. 
+The `print_type_dir` function prints out the available devices for a given build type. 
+The `version_dir` function constructs a path to a version directory and prints out its contents in a tree structure if it exists.
 """
 
 def print_root_dir() -> None:
@@ -82,8 +116,6 @@ def print_selection(buildtype, device, version, id, magisk):
     print("#" * 50)
     print("  ")
 
-
-
 """
 This code defines a function named `generate_keys()`. The function performs several tasks related to 
 generating encryption keys and certificates for Android Verified Boot (AVB) and Over-The-Air (OTA) updates.
@@ -93,14 +125,15 @@ the function generates a new RSA private key using the `openssl` command-line to
 The generated key is then converted to the PKCS#8 format and encrypted with a scrypt-based passphrase. 
 The encrypted key is saved in the `AVBKEY` file. If the `AVB_PKMD` file exists, it is removed.
 
-Next, the code checks whether the `AVB_PKMD` file exists in the file system. If it does not exist, 
-the function extracts the public key from the `AVBKEY` file using the `avbtool.py` script located in the `avbroot/external/avb/` directory. 
+Next, the code checks whether the `AVB_PKMD` file exists in the file system. 
+If it does not exist, the function extracts the public key from the
+`AVBKEY` file using the `avbtool.py` script located in the `avbroot/external/avb/` directory. 
 The extracted public key is saved in the `AVB_PKMD` file.
 
 Then, the code checks whether the OTA key file (`OTAKEY`) exists in the file system.
 If it does not exist, the function generates a new RSA private key using the `openssl` command-line tool with a key size of 4096 bits. 
-The generated key is then converted to the PKCS#8 format and encrypted with a scrypt-based passphrase. The encrypted key is saved in the `OTAKEY` file. 
-If the `OTACERT` file exists, it is removed.
+The generated key is then converted to the PKCS#8 format and encrypted with a scrypt-based passphrase. 
+The encrypted key is saved in the `OTAKEY` file. If the `OTACERT` file exists, it is removed.
 
 Finally, the code checks whether the `OTACERT` file exists in the file system. 
 If it does not exist, the function generates a new self-signed X.509 certificate using the `openssl` command-line tool. 
@@ -180,9 +213,11 @@ def patch_ota(buildtype, device, version, id, magisk):
     
 
 """
-The select_build_type() function is used to prompt the user to select the build type (AOSP, Pixel, or Graphene) and call the select_device() function with the selected build type if the input is valid, otherwise it calls itself again.
+The select_build_type() function is used to prompt the user to select the build type (AOSP, Pixel, or Graphene) and call the select_device() function 
+with the selected build type if the input is valid, otherwise it calls itself again.
 
-The select_device() function prompts the user to select the device and calls the select_build_version() function with the selected build type and device if the input is valid, otherwise it calls itself again.
+The select_device() function prompts the user to select the device and calls the select_build_version() function with the selected build type and device 
+if the input is valid, otherwise it calls itself again.
 
 The select_magisk() function prompts the user to enter the Magisk version and calls the appropriate patch function based on the version selected.
 
@@ -336,5 +371,15 @@ def download_ota(buildtype, device, version, id):
 
 
 
+def main():
+    if os.system("adb version") != 0:
+        generate_keys()
+    else:
+        generate_keys()
 
-generate_keys()
+
+
+if __name__ == '__main__':
+    main()
+
+
