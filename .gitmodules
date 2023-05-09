@@ -1,0 +1,3 @@
+[submodule "avbroot"]
+	path = avbroot
+	url = https://github.com/chenxiaolong/avbroot
