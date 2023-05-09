@@ -1,0 +1,7 @@
+
+rootdir "./factory_ota"
+typedir "{rootdir}/{buildtype}"
+
+
+make a funktion to print the content of rootdir
+make a funktion to print the content of typedir
